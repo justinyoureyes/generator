@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
+ *    Copyright 2006-2020 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -72,11 +72,11 @@ public class ProviderCountByExampleMethodGenerator extends
         	method.addBodyLine("applyWhere(example, false);"); //$NON-NLS-1$
         	method.addBodyLine("return SQL();"); //$NON-NLS-1$
         } else {
-        	method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
-        	method.addBodyLine(String.format("sql.SELECT(\"count(*)\").FROM(\"%s\");", //$NON-NLS-1$
-                escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
-        	method.addBodyLine("applyWhere(sql, example, false);"); //$NON-NLS-1$
-        	method.addBodyLine("return sql.toString();"); //$NON-NLS-1$
+            method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
+            method.addBodyLine(String.format("sql.SELECT(\"count(*) as count\").FROM(\"%s\");", //$NON-NLS-1$
+                    escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
+            method.addBodyLine("applyWhere(sql, example, false);"); //$NON-NLS-1$
+            method.addBodyLine("return sql.toString();"); //$NON-NLS-1$
         }
         
         if (context.getPlugins().providerCountByExampleMethodGenerated(method, topLevelClass,
